@@ -1,15 +1,26 @@
 
-<%= form_for( Recipe.new, :html => {:class => "form-control"} )do |form| %>
+<%= form_for( @recipe, :html => {:class => "form-control"} )do |form| %>
   <%= form.label :title, style: 'margin: 1%' %>
   <%= form.text_field :title , class: 'form-control' %>
 
-  <%= form.label :prep_time_minutes, style: 'margin: 1%' %>
+  <div id="categories">
+    <%= form.fields_for :categories do |category_fields| %>
+     <%= render 'category_fields', f: category_fields %>
+     <%= link_to_add_association 'Add category', form, :categories %>
+    <% end %>
+  </div>
+
+  <%= form.label "Prepping time", style: 'margin-top: 1%' %>
   <%= form.text_field :prep_time_minutes , class: 'form-control col-md-2' %>
 
-  <%= form.label :ingredients, style: 'margin: 1%' %>
-  <%= form.text_area :ingredients , class: 'form-control col-md-5',size: '50x10' %>
+  <%= form.label "Cooking time", style: 'margin-top: 1%' %>
+  <%= form.text_field :cooking_time_minutes , class: 'form-control col-md-2' %>
 
-  <%= form.label :description, style: 'margin: 1%'  %>
+
+  <%= form.label :ingredients, style: 'margin-top: 1%' %>
+  <%= form.text_area :ingredients , class: 'form-control col-md-3',size: '50x10' %>
+
+  <%= form.label :description, style: 'margin-top: 1%'  %>
   <%= form.text_area :description, class: 'form-control mb-2', size: '50x10'%>
   <%= form.submit"Submit your recipe", class: "btn btn-primary mt-5" %>
 <%end%>
