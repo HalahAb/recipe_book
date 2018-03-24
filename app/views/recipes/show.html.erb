@@ -11,8 +11,23 @@
     <p> <h5> Ingredients: </h5> <%=@recipe.ingredients%></p>  
     <p> <h5> Preperation Time: </h5> <%=@recipe.prep_time_minutes%> Minutes</p>
     <p> <h5> Description: </h5> <%=@recipe.description%></p> 
-    
-   </div>
+
+ 
+   <h5> Comments: </h5>
+
+   <% @recipe.comments.each do |comment| %>
+   <p><%=comment.description%></p>
+   <p><%=comment.user.name%></p>
+   <p><%=comment.created_at.to_s(:short)%></p>
+   <%end%>
+
+  <%= form_for [@recipe, Comment.new]  do |form|%>
+    <%= form.text_area :description, class: 'form-control mb-2', size: '20x10'%>
+    <%= form.submit"Submit commet", class: "btn btn-primary mt-5" %>
+  <%end%>
+
+
 </div>
 
+</div>
 
