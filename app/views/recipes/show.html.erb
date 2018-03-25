@@ -42,8 +42,23 @@
     <p> <h5> Ingredients: </h5> <%=@recipe.ingredients%></p>  
     <p> <h5> Preperation Time: </h5> <%=@recipe.prep_time_minutes%> Minutes</p>
     <p> <h5> Description: </h5> <%=@recipe.description%></p> 
-
   <hr>
+  <% if @recipe.user == current_user %>
+    <div class ="row">
+      <div class= "col-lg-2">
+      <%=button_to "Edit Recipe", edit_recipe_path(@recipe), :class=>"btn btn-warning",:method => "get"%>
+    </div>
+
+       <div class= "col">
+      <%=button_to 'Delete Recipe', recipe_path(@recipe), :class=>"btn btn-danger",
+          method: :delete,
+          data: { confirm: 'Are you sure?' } %>
+      </div>
+    </div>
+  <%end%>
+  <hr>
+
+
    <h5> Comments: </h5>
 
    <% @recipe.comments.each do |comment| %>
@@ -58,6 +73,8 @@
        </div>
      </div>
    <%end%>
+
+
 
   <%= form_for [@recipe, Comment.new]  do |form|%>
     <%= form.text_area :description, class: 'form-control', size: '20x3'%>
