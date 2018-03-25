@@ -11,11 +11,11 @@
     <% end %>
   </div>
 
-  <%= form.label "Prepping time", style: 'margin-top: 1%' %>
-  <%= form.text_field :prep_time_minutes , class: 'form-control col-md-2' %>
+  <%= form.label "Prepping time (minutes)", style: 'margin-top: 1%' %>
+  <%= form.number_field :prep_time_minutes , class: 'form-control col-md-2' %>
 
-  <%= form.label "Cooking time", style: 'margin-top: 1%' %>
-  <%= form.text_field :cooking_time_minutes , class: 'form-control col-md-2' %>
+  <%= form.label "Cooking time (minutes)", style: 'margin-top: 1%' %>
+  <%= form.number_field :cooking_time_minutes , class: 'form-control col-md-2' %>
 
 
   <%= form.label :ingredients, style: 'margin-top: 1%' %>

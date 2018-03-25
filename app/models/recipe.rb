@@ -5,4 +5,8 @@ class Recipe < ApplicationRecord
   mount_uploaders :recipe_images, ImageUploader
 
   accepts_nested_attributes_for :categories, reject_if: :all_blank, allow_destroy: true
+
+  def duration
+    prep_time_minutes.to_i + cooking_time_minutes.to_i
+  end
 end

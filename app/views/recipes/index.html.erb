@@ -1,75 +1,53 @@
-
-    <!-- Header with Background Image -->
-    <header class="business-header">
-      <div class="container">
-        <div class="row" style ="height: 75vh; min-height: 500px; text-shadow:-3px -3px 0 #000000, 3px -3px 0 #000000,-3px 3px 0 #000000, 3px 3px 0 #000000; background-color: rgba(95, 100, 100, 0.3)">
-          <div class="col-lg-12  align-self-center">
-            <h1 class="display-3 text-center text-white mt-4"><strong> .. Recipe Book .. </strong></h1>
-          </div>
-        </div>
+<!-- Header with Background Image -->
+<header class="business-header">
+  <div class="container">
+    <div class="row" style ="height: 75vh; min-height: 500px; text-shadow:-3px -3px 0 #000000, 3px -3px 0 #000000,-3px 3px 0 #000000, 3px 3px 0 #000000; background-color: rgba(95, 100, 100, 0.3)">
+      <div class="col-lg-12  align-self-center">
+        <h1 class="display-3 text-center text-white mt-4"><strong> .. Recipe Book .. </strong></h1>
       </div>
-    </header>
-
-
-    <%= form_tag recipes_search_path, method: :post, remote: false do %> 
-          <p> Category
-            <%= select_tag "category_name", options_for_select(Category.distinct.pluck(:name,:name))%>
-          <%= submit_tag "Search", name: nil, class:"btn btn-primary" %> </p>
-        <% end %>
-
-
-
+    </div>
+  </div>
+</header>
 
 
 <div class = "container">
+  <h1 class="mt-5 mb-5"><em> Browse Recipes </em> </h1>
 
-<h1 class="mt-5 mb-5"><em> Browse Recipes </em> </h1>
-<div class ="row">
+  <h2> Category</h2>
 
-  <div class="col">
+  <%= form_tag recipes_search_path, method: :post, remote: false do %> 
+    <div class="input-group">
+      <%= select_tag "category_name", options_for_select(Category.distinct.pluck(:name,:name)), class:'form-control'%>
+      <div class="input-group-append">
+        <%= submit_tag "Search", name: nil, class:"btn btn-primary" %> </p>
+      </div>
+    </div>
+  <% end %>
 
-   <% @recipes.in_groups_of(2,false).each do|group| %> 
+  <br>
 
-        <div class="row">
+  <div class="container">
+    <% @recipes.in_groups_of(3, false).each do|group| %> 
+      <div class="row">
+        <%group.each do|recipe|%>
+          <div class="col">
+            <div class="card">
+              <%if recipe.recipe_images.present?%>
+                <%= image_tag recipe.recipe_images[0].url, class:"card-img-top" %>
+              <%end%>
 
-            <%group.each do|recipe|%>
+              <div class="card-body">
+                <h5 class="card-title"><strong> <%= link_to recipe.title,recipe_path(recipe)%></strong></h5>
+                <p><small class="text-muted"><strong>Posted by: </strong><%=recipe.user.email%></small></p>
+                <p class= "card-text"> <strong> Categories: </strong><%= recipe.categories.pluck(:name).join(',') %></p>
 
-              <div class="card  w-50" style = " padding: 2%">
-                <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-                <%if recipe.recipe_images.present?%>
-                  <%= image_tag recipe.recipe_images[0].url, class:"img-thumbnail mb-3" %>
-                <%end%>
-          
-
-              
-                <div class="card-body" >
-                  <h5 class="card-title"><strong> <%= link_to recipe.title,recipe_path(recipe)%></strong></h5>
-
-                  
-               
-                  <p><small class="text-muted"><strong>Posted by: </strong><%=recipe.user.email%></small></p>
-                  <p class= "card-text"> <strong> Category: </strong> </p>
-                  <ul>
-                     <%recipe.categories.each do |category| %>
-                       <li><%= category.name %></li>
-                      <%end%>
-                  </ul>
-
-                  <p class= "card-text"> <strong> Duration: </strong> <%=recipe.prep_time_minutes%> Minutes </p>
-                  <p class= "card-text"> <strong> Description:</strong> <%=recipe.description%> </p>
-                  <hr>
-                  <div style= "text-align: center">
-                    <br/>
-                    <%= button_to "view", recipe_path(recipe), :class=>"btn btn-info",:method => "get"%>
-                  </div>
-                </div>
+                <p class= "card-text"> <strong> Duration: </strong><%=recipe.duration%> Minutes </p>
+                <%= link_to "view", recipe_path(recipe), class: "btn btn-info btn-block"%>
               </div>
-            <%end%>    
-        </div>
-      
-      <%end%> 
-  </div>
-</div>
-
-
+            </div>
+          </div>
+        <%end%>
+      </div>
+    </div>
+  <%end%> 
 </div>
