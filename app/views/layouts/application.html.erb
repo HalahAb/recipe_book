@@ -23,6 +23,11 @@
             <li class="nav-item active">
               <a class="nav-link" href="/recipes/new">Submit a New Recipe</a>
             </li>
+            <%  if current_user %>
+            <%= link_to "Logout",  logout_path, method: :delete, class:"nav-link active" %>
+            <% else %>
+            <%= link_to "Login",  login_path, method: :get, class:"nav-link active" %>
+            <%end%>
 <!--             <li class="nav-item active">
               <a class="nav-link" href="#">Services</a> -->
             </li>
