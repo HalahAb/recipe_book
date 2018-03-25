@@ -22,5 +22,7 @@
 
   <%= form.label :description, style: 'margin-top: 1%'  %>
   <%= form.text_area :description, class: 'form-control mb-2', size: '50x10'%>
+
+  <%= form.file_field :recipe_images, multiple: true %>
   <%= form.submit"Submit your recipe", class: "btn btn-primary mt-5" %>
 <%end%>

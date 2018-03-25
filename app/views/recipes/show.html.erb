@@ -2,6 +2,37 @@
   <div class="container">
 
     <h1> <%=@recipe.title%></h1>
+   
+
+<div class ="container" style= "display:block;
+     max-width: 75%;">
+  <div id="carouselImages" class="carousel slide"  data-ride="carousel"  >
+  <ol class="carousel-indicators">
+    <li data-target="#carouselImages" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselImages" data-slide-to="1"></li>
+    <li data-target="#carouselImages" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+
+    <% @recipe.recipe_images.each do |image| %>
+       <div class="carousel-item <%= 'active' if image == @recipe.recipe_images[0] %>" >
+          <%= image_tag image.url.to_s, class:"d-block w-100"%>
+      </div>
+    <%end%>
+
+  </div>
+  <a class="carousel-control-prev" href="#carouselImages" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselImages" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+  </div>
+</div>
+
+
     <h5> Categories: </h5>
     <%@recipe.categories.each do |category| %>
     <%= category.name %>
@@ -12,22 +43,32 @@
     <p> <h5> Preperation Time: </h5> <%=@recipe.prep_time_minutes%> Minutes</p>
     <p> <h5> Description: </h5> <%=@recipe.description%></p> 
 
- 
+  <hr>
    <h5> Comments: </h5>
 
    <% @recipe.comments.each do |comment| %>
-   <p><%=comment.description%></p>
-   <p><%=comment.user.name%></p>
-   <p><%=comment.created_at.to_s(:short)%></p>
+     <div class = "row">
+        <div class = "col-sm-2">
+          <p>Posted by:<%=comment.user.name%></p>
+          <p><%=comment.created_at.to_s(:short)%></p>
+        </div>
+        <div class ="col">
+       <p><%=comment.description%></p>
+       
+       </div>
+     </div>
    <%end%>
 
   <%= form_for [@recipe, Comment.new]  do |form|%>
-    <%= form.text_area :description, class: 'form-control mb-2', size: '20x10'%>
-    <%= form.submit"Submit commet", class: "btn btn-primary mt-5" %>
+    <%= form.text_area :description, class: 'form-control', size: '20x3'%>
+    <%= form.submit"Submit a commet", class: "btn btn-primary mt-2" %>
   <%end%>
 
 
-</div>
+  </div>
 
 </div>
+
+
+
 

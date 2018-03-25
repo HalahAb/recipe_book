@@ -30,6 +30,7 @@ class RecipesController < ApplicationController
   end
 
   def update
+    byebug
     @recipe= current_user.recipes.find(params[:id])
     @recipe.update(recipe_params)
     redirect_to recipe_path
@@ -48,6 +49,6 @@ class RecipesController < ApplicationController
 
 private
     def recipe_params
-      params.require(:recipe).permit(:title, :description,:ingredients,:prep_time_minutes, :cooking_time_minutes, categories_attributes: [:id, :_destroy, :name] )
+      params.require(:recipe).permit(:title, :description,:ingredients, {recipe_images: []}, :prep_time_minutes, :cooking_time_minutes, categories_attributes: [:id, :_destroy, :name])
     end
 end
