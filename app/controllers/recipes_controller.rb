@@ -47,8 +47,28 @@ class RecipesController < ApplicationController
 
 
 
+  def search
+    @categories = Category.where(name: params[:category_name])
+
+    @recipes = @categories.map(&:recipe)
+
+    render "index"
+
+
+    # respond_to do |format|
+    #   format.js
+    # end
+    
+  end
+
+
+
 private
     def recipe_params
       params.require(:recipe).permit(:title, :description,:ingredients, {recipe_images: []}, :prep_time_minutes, :cooking_time_minutes, categories_attributes: [:id, :_destroy, :name])
+    end
+
+    def filtering_params(params)
+      params.slice(:category)
     end
 end

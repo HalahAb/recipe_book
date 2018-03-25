@@ -1,5 +1,5 @@
 class Recipe < ApplicationRecord
-  has_many :comments
+  has_many :comments, dependent: :destroy 
   has_many :categories, dependent: :destroy 
   belongs_to :user
   mount_uploaders :recipe_images, ImageUploader

@@ -11,6 +11,14 @@
     </header>
 
 
+    <%= form_tag recipes_search_path, method: :post, remote: false do %> 
+          <p> Category
+            <%= select_tag "category_name", options_for_select(Category.distinct.pluck(:name,:name))%>
+          <%= submit_tag "Search", name: nil, class:"btn btn-primary" %> </p>
+        <% end %>
+
+
+
 
 
 <div class = "container">
