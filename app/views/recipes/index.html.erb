@@ -28,9 +28,9 @@
 
               <div class="card  w-50" style = " padding: 2%">
                 <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-                <%#if listing.listing_images.present?%>
-                  <%#= image_tag listing.listing_images[0].url, class:"img-thumbnail mb-3" %>
-                <%#end%>
+                <%if recipe.recipe_images.present?%>
+                  <%= image_tag recipe.recipe_images[0].url, class:"img-thumbnail mb-3" %>
+                <%end%>
           
 
               
@@ -40,8 +40,14 @@
                   
                
                   <p><small class="text-muted"><strong>Posted by: </strong><%=recipe.user.email%></small></p>
-                  <p class= "card-text"> <strong> Category: </strong> <%=recipe.categories.name%> </p>
-                  <p class= "card-text"> <strong> Duration: </strong> <%=recipe.prep_time_minutes%> </p>
+                  <p class= "card-text"> <strong> Category: </strong> </p>
+                  <ul>
+                     <%recipe.categories.each do |category| %>
+                       <li><%= category.name %></li>
+                      <%end%>
+                  </ul>
+
+                  <p class= "card-text"> <strong> Duration: </strong> <%=recipe.prep_time_minutes%> Minutes </p>
                   <p class= "card-text"> <strong> Description:</strong> <%=recipe.description%> </p>
                   <hr>
                   <div style= "text-align: center">
