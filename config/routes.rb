@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get '/signup' => 'users#new', as: "signup"
   post '/users' => 'users#create'
 
-  root "welcome#index"
+  root "recipes#index"
   resources :recipes do 
     resources :comments, only: [:create, :destroy]
   end

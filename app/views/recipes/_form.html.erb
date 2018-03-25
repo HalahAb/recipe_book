@@ -6,6 +6,7 @@
   <div id="categories">
     <%= form.fields_for :categories do |category_fields| %>
      <%= render 'category_fields', f: category_fields %>
+     <br/>
      <%= link_to_add_association 'Add category', form, :categories %>
     <% end %>
   </div>

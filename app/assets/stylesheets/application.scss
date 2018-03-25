@@ -15,3 +15,25 @@
  */
 
 @import "bootstrap";
+
+body {
+  padding-top: 54px;
+}
+
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 56px;
+  }
+}
+
+.business-header {
+  height: 75vh;
+  min-height: 500px;
+  background: image-url('icons8-team-554108-unsplash.jpg') center center no-repeat scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+
+}

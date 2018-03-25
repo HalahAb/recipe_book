@@ -1,47 +1,61 @@
 
+    <!-- Header with Background Image -->
+    <header class="business-header">
+      <div class="container">
+        <div class="row" style ="height: 75vh; min-height: 500px; text-shadow:-3px -3px 0 #000000, 3px -3px 0 #000000,-3px 3px 0 #000000, 3px 3px 0 #000000; background-color: rgba(95, 100, 100, 0.3)">
+          <div class="col-lg-12  align-self-center">
+            <h1 class="display-3 text-center text-white mt-4"><strong> .. Recipe Book .. </strong></h1>
+          </div>
+        </div>
+      </div>
+    </header>
+
+
+
+
 <div class = "container">
-  <br/>
-  <h2> Recipes </h2>
 
+<h1 class="mt-5 mb-5"><em> Browse Recipes </em> </h1>
+<div class ="row">
 
+  <div class="col">
 
-<div class="column">
- <% @recipes.in_groups_of(2,false).each do|group| %> 
+   <% @recipes.in_groups_of(2,false).each do|group| %> 
 
-      <div class="row">
+        <div class="row">
 
-          <%group.each do|recipe|%>
+            <%group.each do|recipe|%>
 
-            <div class="card  w-50" style = " padding: 2%">
-              <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-              <%#if listing.listing_images.present?%>
-                <%#= image_tag listing.listing_images[0].url, class:"img-thumbnail mb-3" %>
-              <%#end%>
-        
+              <div class="card  w-50" style = " padding: 2%">
+                <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+                <%#if listing.listing_images.present?%>
+                  <%#= image_tag listing.listing_images[0].url, class:"img-thumbnail mb-3" %>
+                <%#end%>
+          
 
-            
-              <div class="card-body" >
-                <h5 class="card-title"><strong> <%= link_to recipe.title,recipe_path(recipe)%></strong></h5>
+              
+                <div class="card-body" >
+                  <h5 class="card-title"><strong> <%= link_to recipe.title,recipe_path(recipe)%></strong></h5>
 
-                
-             
-                <p><small class="text-muted"><strong>Posted by: </strong><%=recipe.user.email%></small></p>
-                <p class= "card-text"> <strong> Category </strong> <%=recipe.categories.name%> </p>
-                <p class= "card-text"> <strong> Duration: </strong> <%=recipe.prep_time_minutes%> </p>
-                <p class= "card-text"> <strong> Description:</strong> <%=recipe.description%> </p>
-                <hr>
-                <div style= "text-align: center">
-                  <br/>
-                  <%= button_to "view", recipe_path(recipe), :class=>"btn btn-info",:method => "get"%>
+                  
+               
+                  <p><small class="text-muted"><strong>Posted by: </strong><%=recipe.user.email%></small></p>
+                  <p class= "card-text"> <strong> Category: </strong> <%=recipe.categories.name%> </p>
+                  <p class= "card-text"> <strong> Duration: </strong> <%=recipe.prep_time_minutes%> </p>
+                  <p class= "card-text"> <strong> Description:</strong> <%=recipe.description%> </p>
+                  <hr>
+                  <div style= "text-align: center">
+                    <br/>
+                    <%= button_to "view", recipe_path(recipe), :class=>"btn btn-info",:method => "get"%>
+                  </div>
                 </div>
               </div>
-            </div>
-          <%end%>    
-      </div>
-    
-    <%end%> 
+            <%end%>    
+        </div>
+      
+      <%end%> 
+  </div>
 </div>
-
 
 
 </div>
