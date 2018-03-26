@@ -61,6 +61,28 @@ class RecipesController < ApplicationController
     
   end
 
+  def list_unverified
+    if current_user.admin?
+      @recipes = Recipe.where(verified: false)
+      render "index"
+    else
+      redirect_to recipes_path
+    end
+    
+  end
+
+  def verify
+    @recipe = current_user.recipes.find(params[:id])
+    @recipe.verify 
+    redirect_to recipes_path
+  end
+
+  def unverify
+    @recipe = current_user.recipes.find(params[:id])
+    @recipe.unverify
+    redirect_to recipes_path
+  end
+
 
 
 private

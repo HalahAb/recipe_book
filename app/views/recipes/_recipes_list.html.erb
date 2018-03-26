@@ -1,0 +1,36 @@
+  <div class="container">
+    <% @recipes.in_groups_of(3, false).each do|group| %> 
+      <div class="row">
+        <%group.each do|recipe|%>
+          <div class="col">
+            <div class="card">
+              <%if recipe.recipe_images.present?%>
+                <%= image_tag recipe.recipe_images[0].url, class:"card-img-top" %>
+              <%end%>
+
+              <div class="card-body">
+                <h5 class="card-title"><strong> <%= link_to recipe.title,recipe_path(recipe)%></strong></h5>
+                <p><small class="text-muted"><strong>Posted by: </strong><%=recipe.user.email%></small></p>
+
+                <% if current_user.admin? %>
+                  <% if recipe.verified? %>
+                    <p  style="color: green"><small><strong>Verification Status: </strong> Verified.</small></p>
+                  <%else%>
+                    <p  style="color: red"><small><strong>Verification Status: </strong>Unverified.</small></p>
+                  <%end%>
+                <%end%>
+
+                
+                <p class= "card-text"> <strong> Categories: </strong><%= recipe.categories.pluck(:name).join(',') %></p>
+
+                <p class= "card-text"> <strong> Duration: </strong><%=recipe.duration%> Minutes </p>
+                <%= link_to "view", recipe_path(recipe), class: "btn btn-info btn-block"%>
+              </div>
+            </div>
+          </div>
+        <%end%>
+      </div>
+    </div>
+  <%end%> 
+</div>
+

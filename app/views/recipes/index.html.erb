@@ -15,7 +15,7 @@
 
   <h2> Category</h2>
 
-  <%= form_tag recipes_search_path, method: :post, remote: false do %> 
+  <%= form_tag search_recipes_path, method: :post, remote: false do %> 
     <div class="input-group">
       <%= select_tag "category_name", options_for_select(Category.distinct.pluck(:name,:name)), class:'form-control'%>
       <div class="input-group-append">
@@ -26,28 +26,4 @@
 
   <br>
 
-  <div class="container">
-    <% @recipes.in_groups_of(3, false).each do|group| %> 
-      <div class="row">
-        <%group.each do|recipe|%>
-          <div class="col">
-            <div class="card">
-              <%if recipe.recipe_images.present?%>
-                <%= image_tag recipe.recipe_images[0].url, class:"card-img-top" %>
-              <%end%>
-
-              <div class="card-body">
-                <h5 class="card-title"><strong> <%= link_to recipe.title,recipe_path(recipe)%></strong></h5>
-                <p><small class="text-muted"><strong>Posted by: </strong><%=recipe.user.email%></small></p>
-                <p class= "card-text"> <strong> Categories: </strong><%= recipe.categories.pluck(:name).join(',') %></p>
-
-                <p class= "card-text"> <strong> Duration: </strong><%=recipe.duration%> Minutes </p>
-                <%= link_to "view", recipe_path(recipe), class: "btn btn-info btn-block"%>
-              </div>
-            </div>
-          </div>
-        <%end%>
-      </div>
-    </div>
-  <%end%> 
-</div>
+ <%= render partial: 'recipes_list' %>

@@ -4,13 +4,15 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy', as: "logout"
 
-  post "recipes/search" => "recipes#search"
-
   get '/signup' => 'users#new', as: "signup"
   post '/users' => 'users#create'
 
   root "recipes#index"
-  resources :recipes do 
+  resources :recipes do
+    get :list_unverified, on: :collection
+    post :search, on: :collection
+    put :verify, on: :member
+    put :unverify, on: :member
     resources :comments, only: [:create, :destroy]
   end
   

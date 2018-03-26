@@ -9,4 +9,15 @@ class Recipe < ApplicationRecord
   def duration
     prep_time_minutes.to_i + cooking_time_minutes.to_i
   end
+
+  def verify 
+    self.verified = true
+    self.save
+  end
+
+  def unverify 
+    self.verified = false
+    self.save
+  end
+
 end
