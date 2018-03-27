@@ -16,8 +16,6 @@ class Recipe < ApplicationRecord
   validates :prep_time_minutes, numericality: true
 
 
-
-
   def duration
     prep_time_minutes.to_i + cooking_time_minutes.to_i
   end

@@ -4,12 +4,12 @@ require 'fog/aws'
 CarrierWave.configure do |config|
 
   # Use local storage if in development or test
-  if Rails.env.development? || Rails.env.test?
-    config.storage = :file
-  end
+  # if Rails.env.development? || Rails.env.test?
+  #   config.storage = :file
+  # end
   
   # Use AWS storage if in production
-  if Rails.env.production?
+  if Rails.env.development? || Rails.env.production?
   config.fog_provider = 'fog/aws'
   config.fog_credentials = {
       provider:              'AWS',
@@ -17,7 +17,6 @@ CarrierWave.configure do |config|
       aws_secret_access_key: ENV['S3_Secret_Access_Key'],
       region:                ENV['ap-southeast-1'],
   }
-  config.fog_directory  = ENV['S3_BUCKET']
 
     config.storage = :fog
     config.fog_directory  = ENV['bucket_name']                      # required
