@@ -3,6 +3,12 @@ class User < ApplicationRecord
   has_many :comments 
   has_many :recipes 
 
+  validates :password_digest, presence: true
+  validates :email, presence: true
+  validates :email, uniqueness: true
+
+
+
   def user?
   self.role == "user"
   end

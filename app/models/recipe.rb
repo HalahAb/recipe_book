@@ -6,6 +6,18 @@ class Recipe < ApplicationRecord
 
   accepts_nested_attributes_for :categories, reject_if: :all_blank, allow_destroy: true
 
+  validates :title, presence: true
+  validates :description, presence: true
+  validates :ingredients, presence: true
+  validates :cooking_time_minutes, presence: true
+  validates :prep_time_minutes, presence: true
+
+  validates :cooking_time_minutes, numericality: true
+  validates :prep_time_minutes, numericality: true
+
+
+
+
   def duration
     prep_time_minutes.to_i + cooking_time_minutes.to_i
   end
