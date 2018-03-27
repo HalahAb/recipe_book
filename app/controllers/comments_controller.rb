@@ -4,12 +4,10 @@ class CommentsController < ApplicationController
     @recipe = Recipe.find(params[:recipe_id])
     @comment = @recipe.comments.new(user_id: current_user.id, description: params[:comment][:description])
     
-    if @comment.save
-    redirect_to recipe_path(@recipe)
+    @comment.save
+
+    respond_to do |format|
+      format.js
     end
   end
-
-
-
-
 end

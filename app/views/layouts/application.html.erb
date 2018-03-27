@@ -43,15 +43,15 @@
       </div>
     </nav>
 
-      <div id="flash">
-    <% flash.each do |key, value| -%>
-      <% if key == "success"%>
-        <div id="flash_<%= key %>" class="alert alert-success" role="alert"><%=h value %></div>
-      <% else %>
-        <div id="flash_<%= key %>" class="alert alert-danger" role="alert"><%=h value %></div>
+    <div id="flash">
+      <% flash.each do |key, value| -%>
+        <% if key == "success"%>
+          <div id="flash_<%= key %>" class="alert alert-success" role="alert"><%=h value %></div>
+        <% else %>
+          <div id="flash_<%= key %>" class="alert alert-danger" role="alert"><%=h value %></div>
+        <% end %>
       <% end %>
-    <% end %>
-  </div>
+    </div>
 
     <%= yield %>
   </body>

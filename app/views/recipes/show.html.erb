@@ -77,53 +77,29 @@
   </div>
 
 
-      <%= form_tag(get_ingredients_recipe_path(@recipe), method: "put") do %>
-        <%= label_tag(:number, "Send ingredients to phone number") %>
-        <%= text_field_tag(:number) %>
-        <%= submit_tag("Submit Number", :class => "btn btn-warning") %>
-      <% end %>
-
-
-
+  <%= form_tag(get_ingredients_recipe_path(@recipe), method: "put", class: 'form-inline') do %>
+    <div class="form-group">
+      <%= label_tag(:number, "Send ingredients to phone number") %>
+      <%= text_field_tag(:number, '', class: 'form-control ml-2') %>
+    </div>
+    <%= submit_tag("Submit Number", :class => "btn btn-warning ml-2") %>
+  <% end %>
 
   <hr>
 
-
-   <h5> Comments: </h5>
-<div class ="container mb-5">
-   <% @recipe.comments.each do |comment| %>
-     <div class = "row border">
-        <div class = "col-sm-2">
-          <p><small>Posted by: <%=comment.user.email%></small></p>
-        </div>
-
-        <div class ="col">
-          <p><small><%=comment.created_at.to_s(:short)%></small></p>
-          <p><%=comment.description%></p>
-        </div>
-
-     </div>
-   <%end%>
-
-    <% if current_user %>
-      <%= form_for [@recipe, Comment.new]  do |form|%>
-        <%= form.text_area :description, class: 'form-control', size: '20x3'%>
-        <%= form.submit"Submit a commet", class: "btn btn-primary mt-2" %>
+  <h5> Comments: </h5>
+  <div class ="container mb-5" id="comments_list">
+    <% @recipe.comments.each do |comment| %>
+      <%= render partial: 'comment', locals: { comment: comment } %>
+    <%end%>
+  </div>
+  <% if current_user %>
+    <%= form_for [@recipe, Comment.new], remote: true  do |form|%>
+      <%= form.text_area :description, class: 'form-control', size: '20x3'%>
+      <%= form.submit "Submit a commet", class: "btn btn-primary mt-2" %>
       <%end%>
     <%end%>
-
-</div>
-
-
-
-
-
-
-
   </div>
-
 </div>
-
-
 
 

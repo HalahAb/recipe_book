@@ -1,0 +1,11 @@
+<div class = "row border">
+  <div class = "col-sm-2">
+    <p><small>Posted by: <%=comment.user.email%></small></p>
+  </div>
+
+  <div class ="col">
+    <p><small><%=comment.created_at.to_s(:short)%></small></p>
+    <p><%=comment.description%></p>
+  </div>
+
+</div>

@@ -20,4 +20,3 @@
 //= require jquery
 //= require cocoon
 //= require_tree .
-
