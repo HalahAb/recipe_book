@@ -40,6 +40,7 @@ gem "cocoon"
 gem "carrierwave"
 gem 'twilio-ruby', '~> 5.7.2'
 gem "figaro"
+gem "fog-aws"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
