@@ -39,7 +39,7 @@
     <%end%>
 
     <p> Submitted by: <%=@recipe.user.email%></p>  
-    <% if current_user.admin? %>
+    <% if current_user && current_user.admin? %>
       <% if @recipe.verified? %>
         <p  style="color: green"><strong>Verification Status: </strong> Verified.</p>
       <%else%>
@@ -55,17 +55,17 @@
     <p> <h5> Description: </h5> <%=@recipe.description%></p> 
   <hr>
 
-  <% if (@recipe.user == current_user ) || (current_user.admin?) %>
+  
   <div class="btn-toolbar mb-5" role="toolbar" aria-label="Toolbar with button groups">
     <div class="btn-group btn-group-lg" role="group" aria-label="...">
-
+<% if current_user && ((@recipe.user == current_user ) || (current_user.admin?)) %>
       <%=link_to "Edit Recipe", edit_recipe_path(@recipe), :class=>"btn btn-info",:method => "get"%>
 
       <%=link_to 'Delete Recipe', recipe_path(@recipe), :class=>"btn btn-danger",
           method: :delete,
           data: { confirm: 'Are you sure?' } %>
   <%end%>
-      <% if current_user.admin? %>
+      <% if current_user && current_user.admin? %>
           <%=link_to 'Verfiy Recipe', verify_recipe_path(@recipe), :class=>"btn btn-success ",
               method: :put %>
 
@@ -90,7 +90,7 @@
 
 
    <h5> Comments: </h5>
-<div class ="container">
+<div class ="container mb-5">
    <% @recipe.comments.each do |comment| %>
      <div class = "row border">
         <div class = "col-sm-2">
@@ -104,13 +104,20 @@
 
      </div>
    <%end%>
+
+    <% if current_user %>
+      <%= form_for [@recipe, Comment.new]  do |form|%>
+        <%= form.text_area :description, class: 'form-control', size: '20x3'%>
+        <%= form.submit"Submit a commet", class: "btn btn-primary mt-2" %>
+      <%end%>
+    <%end%>
+
 </div>
 
 
-  <%= form_for [@recipe, Comment.new]  do |form|%>
-    <%= form.text_area :description, class: 'form-control', size: '20x3'%>
-    <%= form.submit"Submit a commet", class: "btn btn-primary mt-2" %>
-  <%end%>
+
+
+
 
 
   </div>
