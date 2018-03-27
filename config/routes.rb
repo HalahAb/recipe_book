@@ -7,12 +7,15 @@ Rails.application.routes.draw do
   get '/signup' => 'users#new', as: "signup"
   post '/users' => 'users#create'
 
+
+
   root "recipes#index"
   resources :recipes do
     get :list_unverified, on: :collection
     post :search, on: :collection
     put :verify, on: :member
     put :unverify, on: :member
+    put :get_ingredients, on: :member
     resources :comments, only: [:create, :destroy]
   end
   

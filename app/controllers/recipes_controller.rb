@@ -5,7 +5,8 @@ class RecipesController < ApplicationController
   end
 
   def show
-     @recipe = Recipe.find(params[:id])
+    @recipe = Recipe.find(params[:id])
+
   end
   
   def new
@@ -83,7 +84,22 @@ class RecipesController < ApplicationController
     redirect_to recipes_path
   end
 
+  def get_ingredients
+    @recipe= Recipe.find(params[:id])
+    # set up a client to talk to the Twilio REST API
+    @client = Twilio::REST::Client.new ENV['account_sid'], ENV['auth_token']
 
+    from = '+19104058440 ' # Your Twilio number
+    to = params[:number] # Your mobile phone number
+
+    @client.api.account.messages.create(
+    from: from,
+    to: to,
+    body: @recipe.ingredients
+    )
+
+    redirect_to recipe_path
+  end
 
 private
     def recipe_params
